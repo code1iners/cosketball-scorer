@@ -15,8 +15,6 @@ import {
 const Container = styled.View``;
 
 const WelcomeScreen = () => {
-  useEffect(() => {}, []);
-
   return (
     <Container>
       <View>
