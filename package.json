@@ -7,10 +7,14 @@
     "start": "react-native start"
   },
   "dependencies": {
+    "@ce1pers/use-resource": "^1.0.1",
     "@ce1pers/use-screen": "^1.0.3",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
     "expo": "~43.0.2",
+    "expo-app-loading": "~1.2.1",
+    "expo-asset": "~8.4.3",
+    "expo-font": "~10.0.3",
     "expo-splash-screen": "~0.13.5",
     "expo-status-bar": "~1.1.0",
     "expo-updates": "~0.10.13",
