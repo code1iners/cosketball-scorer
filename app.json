@@ -1,0 +1,11 @@
+{
+  "expo": {
+    "name": "cosketball-scorer",
+    "slug": "cosketball-scorer",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  },
+  "name": "cosketball-scorer"
+}
