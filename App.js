@@ -3,7 +3,6 @@ import React, { useState } from "react";
 import RootNavigation from "./src/navigators/RootNavigator";
 import AppLoading from "expo-app-loading";
 import { Ionicons } from "@expo/vector-icons";
-import { Text } from "react-native";
 import { loadFonts } from "@ce1pers/use-resource";
 
 export default function App() {
@@ -50,8 +49,6 @@ export default function App() {
 
   return (
     <NavigationContainer>
-      <Ionicons name="beer" size={20} />
-      <Text>asdf</Text>
       <RootNavigation />
     </NavigationContainer>
   );
