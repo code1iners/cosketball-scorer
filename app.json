@@ -3,9 +3,10 @@
     "name": "cosketball-scorer",
     "slug": "cosketball-scorer",
     "version": "1.0.0",
-    "assetBundlePatterns": [
-      "**/*"
-    ]
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "requireFullScreen": true
+    }
   },
   "name": "cosketball-scorer"
 }
