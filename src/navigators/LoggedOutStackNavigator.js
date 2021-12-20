@@ -6,7 +6,7 @@ import JoinScreen from "../screens/auth/JoinScreen";
 
 const Navigation = createNativeStackNavigator();
 
-const StackNavigator = () => {
+const LoggedOutStackNavigator = () => {
   return (
     <Navigation.Navigator
       screenOptions={{
@@ -23,4 +23,4 @@ const StackNavigator = () => {
   );
 };
 
-export default StackNavigator;
+export default LoggedOutStackNavigator;

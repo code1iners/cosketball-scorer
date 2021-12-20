@@ -1,22 +1,19 @@
 import React from "react";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import LoggedOutStackNavigator from "./LoggedOutStackNavigator";
+import ScoreMainScreen from "../screens/scores/ScoreMainScreen";
 
 const Navigation = createNativeStackNavigator();
 
-const LoggedOutNavigator = () => {
+const LoggedInStackNavigator = () => {
   return (
     <Navigation.Navigator
       screenOptions={{
         headerShown: false,
       }}
     >
-      <Navigation.Screen
-        name="LoggedOutStackNavigator"
-        component={LoggedOutStackNavigator}
-      />
+      <Navigation.Screen name="ScoreMainScreen" component={ScoreMainScreen} />
     </Navigation.Navigator>
   );
 };
 
-export default LoggedOutNavigator;
+export default LoggedInStackNavigator;

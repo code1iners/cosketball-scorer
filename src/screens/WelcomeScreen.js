@@ -89,7 +89,7 @@ const WelcomeScreen = ({ navigation: { navigate } }) => {
    */
   const onJoinClick = () => {
     // Go to join screen.
-    navigate("StackNavigator", {
+    navigate("LoggedOutStackNavigator", {
       screen: "JoinScreen",
     });
   };
@@ -99,7 +99,7 @@ const WelcomeScreen = ({ navigation: { navigate } }) => {
    */
   const onPasswordForgotClick = () => {
     // Go to password forgot screen.
-    navigate("StackNavigator", {
+    navigate("LoggedOutStackNavigator", {
       screen: "PasswordForgotScreen",
     });
   };

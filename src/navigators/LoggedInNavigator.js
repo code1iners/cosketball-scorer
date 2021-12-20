@@ -1,16 +1,21 @@
 import React from "react";
-import styled from "styled-components/native";
-import { View, Text } from "react-native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import LoggedInStackNavigator from "./LoggedInStackNavigator";
 
-const Container = styled.View``;
+const Navigation = createNativeStackNavigator();
 
 const LoggedInNavigation = () => {
   return (
-    <Container>
-      <View>
-        <Text>LoggedInNavigation</Text>
-      </View>
-    </Container>
+    <Navigation.Navigator
+      screenOptions={{
+        headerShown: false,
+      }}
+    >
+      <Navigation.Screen
+        name="LoggedInStackNavigator"
+        component={LoggedInStackNavigator}
+      />
+    </Navigation.Navigator>
   );
 };
 
