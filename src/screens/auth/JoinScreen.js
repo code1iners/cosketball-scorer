@@ -59,10 +59,10 @@ const JoinScreen = () => {
   // Methods.
 
   const clearInput = () => {
-    emailRef.current?.focus();
-    usernameRef.current?.focus();
-    passwordRef.current?.focus();
-    confirmPasswordRef.current?.focus();
+    setEmail("");
+    setUsername("");
+    setPassword("");
+    setConfirmPassword("");
   };
 
   // Handlers.
