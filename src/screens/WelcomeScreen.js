@@ -6,10 +6,10 @@ import HorizontalButton from "../components/HorizontalButton";
 
 const ScrollView = styled(KeyboardAwareScrollView)``;
 
-const AppTitleWrapper = styled.View`
+const HeaderContainer = styled.View`
   margin: 90px auto;
 `;
-const AppTitle = styled.Text`
+const HeaderTitle = styled.Text`
   font-size: 26px;
   font-weight: 600;
   text-transform: uppercase;
@@ -33,6 +33,7 @@ const Label = styled.Text`
 `;
 const Input = styled.TextInput`
   flex: 1;
+  text-align: right;
   letter-spacing: 1.5px;
 `;
 
@@ -113,9 +114,9 @@ const WelcomeScreen = ({ navigation: { navigate } }) => {
 
   return (
     <ScrollView contentContainerStyle={{}}>
-      <AppTitleWrapper>
-        <AppTitle>Cosketball</AppTitle>
-      </AppTitleWrapper>
+      <HeaderContainer>
+        <HeaderTitle>Cosketball</HeaderTitle>
+      </HeaderContainer>
 
       <FormContainer>
         {/* Email */}
@@ -129,7 +130,7 @@ const WelcomeScreen = ({ navigation: { navigate } }) => {
             onChangeText={(text) => setEmail(text)}
             returnKeyType="next"
             keyboardType="email-address"
-            onSubmitEditing={() => passwordRef?.current.focus()}
+            onSubmitEditing={() => passwordRef.current?.focus()}
           />
         </InputWrapper>
 
