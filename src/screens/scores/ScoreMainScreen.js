@@ -14,6 +14,7 @@ import { FlexView } from "../../utils/styles";
 import { TEAM_AWAY, TEAM_HOME } from "../../utils/constants";
 import TeamScore from "../../components/TeamScore";
 import colors from "../../utils/colors";
+import useSegment from "../../hooks/useSegment";
 
 const Container = styled(FlexView)`
   flex: 1;
@@ -59,7 +60,9 @@ const AttackTimeContainer = styled(FlexView)`
   margin: 10px 0;
 `;
 
-const AttackTimeWrapper = styled(FlexView)`
+const AttackTimeWrapper = styled.TouchableOpacity`
+  flex-direction: row;
+  align-items: center;
   transform: scale(0.7);
 `;
 
@@ -80,8 +83,25 @@ const StartButtonText = styled.Text`
 
 const ScoreMainScreen = () => {
   // Variables.
+  const [started, setStarted] = useState(false);
+  const [attackTime, setAttackTime] = useState(24);
+  const { getFirstDigit, getSecondDigit } = useSegment();
+  const [attackTimeIntervalId, setAttackTimeIntervalId] = useState();
 
   // Methods.
+
+  // Handlers.
+
+  const onStartClick = () => {
+    setStarted((previous) => !previous);
+  };
+
+  const onAttackTimeClick = () => {
+    setAttackTime(24);
+  };
+  const onAttackTimeLongClick = () => {
+    setAttackTime(14);
+  };
 
   // Watch.
 
@@ -90,7 +110,25 @@ const ScoreMainScreen = () => {
     await setOrientationByLandscape();
   }, []);
 
-  // Handlers.
+  // When changed started.
+  useEffect(() => {
+    if (started) {
+      setAttackTimeIntervalId(
+        setInterval(() => {
+          setAttackTime((previous) => {
+            if (previous > 0) {
+              return previous - 1;
+            } else {
+              return 0;
+            }
+          });
+        }, 1000)
+      );
+    } else {
+      setAttackTimeIntervalId(null);
+      clearInterval(attackTimeIntervalId);
+    }
+  }, [started]);
 
   return (
     <Container>
@@ -124,19 +162,22 @@ const ScoreMainScreen = () => {
 
         {/* Attack time */}
         <AttackTimeContainer>
-          <AttackTimeWrapper>
+          <AttackTimeWrapper
+            onPress={onAttackTimeClick}
+            onLongPress={onAttackTimeLongClick}
+          >
             <SegmentWrapper>
-              <SevenSegment number={0} />
+              <SevenSegment number={getSecondDigit(attackTime)} />
             </SegmentWrapper>
             <SegmentWrapper>
-              <SevenSegment number={0} />
+              <SevenSegment number={getFirstDigit(attackTime)} />
             </SegmentWrapper>
           </AttackTimeWrapper>
         </AttackTimeContainer>
 
         {/* Start button */}
-        <StartButton>
-          <StartButtonText>Start</StartButtonText>
+        <StartButton onPress={onStartClick}>
+          <StartButtonText>{started ? "Stop" : "Start"}</StartButtonText>
         </StartButton>
       </InfoContainer>
 

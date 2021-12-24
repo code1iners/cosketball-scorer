@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
+import useSegment from "../hooks/useSegment";
 import colors from "../utils/colors";
 import SevenSegment from "./SevenSegment";
 
@@ -37,15 +38,9 @@ const TeamScore = ({ teamName = "TEAM", headerColor }) => {
 
   const [score, setScore] = useState(0);
 
+  const { getFirstDigit, getSecondDigit } = useSegment();
+
   // Methods.
-
-  const getScoreFirstDigit = () => {
-    return Math.floor(score % 10);
-  };
-
-  const getScoreSecondDigit = () => {
-    return Math.floor(score / 10);
-  };
 
   const scoreUp = () => {
     setScore((previous) => previous + 1);
@@ -61,25 +56,18 @@ const TeamScore = ({ teamName = "TEAM", headerColor }) => {
 
   // Handlers.
 
-  const onScoreClick = () => {
-    scoreUp();
-  };
-
-  const onScoreLongClick = () => {
-    scoreDown();
-  };
-
   return (
     <ScoreContainer>
-      {/* Home Label */}
+      {/* Team Header Label */}
       <ScoreLabelWrapper headerColor={headerColor}>
+        {/* Team Name */}
         <ScoreLabel>{teamName}</ScoreLabel>
       </ScoreLabelWrapper>
 
-      {/* Home Value */}
-      <ScoreValueWrapper onLongPress={onScoreLongClick} onPress={onScoreClick}>
-        <SevenSegment number={getScoreSecondDigit()} />
-        <SevenSegment number={getScoreFirstDigit()} />
+      {/* Team Value */}
+      <ScoreValueWrapper onLongPress={scoreDown} onPress={scoreUp}>
+        <SevenSegment number={getSecondDigit(score)} />
+        <SevenSegment number={getFirstDigit(score)} />
       </ScoreValueWrapper>
     </ScoreContainer>
   );
