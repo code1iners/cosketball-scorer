@@ -12,6 +12,8 @@ import {
 import SevenSegment from "../../components/SevenSegment";
 import { FlexView } from "../../utils/styles";
 import { TEAM_AWAY, TEAM_HOME } from "../../utils/constants";
+import TeamScore from "../../components/TeamScore";
+import colors from "../../utils/colors";
 
 const Container = styled(FlexView)`
   flex: 1;
@@ -22,33 +24,6 @@ const TeamContainer = styled.View`
   flex: 1;
   padding: 10px;
   justify-content: space-between;
-`;
-
-const ScoreContainer = styled.View`
-  flex: 1;
-`;
-const ScoreLabelWrapper = styled.View`
-  padding: 5px;
-  border-top-left-radius: 10px;
-  border-top-right-radius: 10px;
-`;
-const ScoreLabel = styled.Text`
-  text-transform: uppercase;
-  text-align: center;
-  font-size: 30px;
-  color: white;
-`;
-const ScoreValueWrapper = styled.TouchableOpacity.attrs({
-  activeOpacity: 1,
-})`
-  flex-direction: row;
-  align-items: center;
-  padding: 20px;
-  justify-content: center;
-  align-items: center;
-  background-color: black;
-  border-bottom-left-radius: 10px;
-  border-bottom-right-radius: 10px;
 `;
 const ActionContainer = styled.View`
   flex: 0.3;
@@ -105,46 +80,8 @@ const StartButtonText = styled.Text`
 
 const ScoreMainScreen = () => {
   // Variables.
-  const [homeScore, setHomeScore] = useState(0);
-  const [awayScore, setAwayScore] = useState(0);
 
   // Methods.
-
-  const getScoreFirstDigit = (score) => {
-    return Math.floor(score % 10);
-  };
-
-  const getScoreSecondDigit = (score) => {
-    return Math.floor(score / 10);
-  };
-
-  const homeScoreUp = () => {
-    setHomeScore((previous) => previous + 1);
-    console.log(homeScore);
-  };
-
-  const homeScoreDown = () => {
-    setHomeScore((previous) => {
-      if (previous < 0) return 0;
-      else if (previous == 0) return previous;
-      else return previous - 1;
-    });
-    console.log(homeScore);
-  };
-
-  const awayScoreUp = () => {
-    setAwayScore((previous) => previous + 1);
-    console.log(awayScore);
-  };
-
-  const awayScoreDown = () => {
-    setAwayScore((previous) => {
-      if (previous < 0) return 0;
-      else if (previous == 0) return previous;
-      else return previous - 1;
-    });
-    console.log(awayScore);
-  };
 
   // Watch.
 
@@ -155,56 +92,12 @@ const ScoreMainScreen = () => {
 
   // Handlers.
 
-  const onScoreClick = (team) => {
-    console.log("onScoreClick");
-    switch (team) {
-      case TEAM_HOME:
-        homeScoreUp();
-        break;
-
-      case TEAM_AWAY:
-        awayScoreUp();
-        break;
-    }
-  };
-
-  const onScoreLongClick = (team) => {
-    console.log("onScoreLongClick");
-    switch (team) {
-      case TEAM_HOME:
-        homeScoreDown();
-        break;
-
-      case TEAM_AWAY:
-        awayScoreDown();
-        break;
-    }
-  };
-
   return (
     <Container>
       {/* Home */}
       <TeamContainer>
-        <ScoreContainer>
-          {/* Home Label */}
-          <ScoreLabelWrapper
-            style={{
-              backgroundColor: "#e74c3c",
-            }}
-          >
-            <ScoreLabel>HOME</ScoreLabel>
-          </ScoreLabelWrapper>
-
-          {/* Home Value */}
-          <ScoreValueWrapper
-            onLongPress={() => onScoreLongClick(TEAM_HOME)}
-            onPress={() => onScoreClick(TEAM_HOME)}
-          >
-            <SevenSegment number={getScoreSecondDigit(homeScore)} />
-            <SevenSegment number={getScoreFirstDigit(homeScore)} />
-          </ScoreValueWrapper>
-        </ScoreContainer>
-
+        {/* Score */}
+        <TeamScore teamName={TEAM_HOME} headerColor={colors.red} />
         {/* Home actions */}
         <ActionContainer></ActionContainer>
       </TeamContainer>
@@ -249,26 +142,8 @@ const ScoreMainScreen = () => {
 
       {/* Away */}
       <TeamContainer>
-        <ScoreContainer>
-          {/* Away Label */}
-          <ScoreLabelWrapper
-            style={{
-              backgroundColor: "#3498db",
-            }}
-          >
-            <ScoreLabel>Away</ScoreLabel>
-          </ScoreLabelWrapper>
-
-          {/* Away Value */}
-          <ScoreValueWrapper
-            onLongPress={() => onScoreLongClick(TEAM_AWAY)}
-            onPress={() => onScoreClick(TEAM_AWAY)}
-          >
-            <SevenSegment number={getScoreSecondDigit(awayScore)} />
-            <SevenSegment number={getScoreFirstDigit(awayScore)} />
-          </ScoreValueWrapper>
-        </ScoreContainer>
-
+        {/* Score */}
+        <TeamScore teamName={TEAM_AWAY} headerColor={colors.blue} />
         {/* Away actions */}
         <ActionContainer></ActionContainer>
       </TeamContainer>
