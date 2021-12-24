@@ -1,13 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components/native";
-import { View, Text } from "react-native";
 
 const Container = styled.View`
   width: 70px;
   height: 130px;
   position: relative;
-  transform: scale(1);
   margin: 10px;
+  transform: ${(props) => (props.size !== "small" ? "scale(1)" : "scale(0.5)")};
+  background-color: transparent;
 `;
 
 const Segment = styled.View`
@@ -56,7 +56,7 @@ const G = styled(Segment)`
   transform: rotate(90deg);
 `;
 
-const SevenSegment = ({ number }) => {
+const SevenSegment = ({ number, size }) => {
   const segments = [false, false, false, false, false, false, false];
   if (typeof number === "number") {
     switch (number) {
@@ -143,7 +143,7 @@ const SevenSegment = ({ number }) => {
   }
 
   return (
-    <Container>
+    <Container size={size}>
       <A on={segments[0]} />
       <B on={segments[1]} />
       <C on={segments[2]} />
