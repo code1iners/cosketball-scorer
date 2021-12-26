@@ -17,6 +17,7 @@ import colors from "../../utils/colors";
 import useSegment from "../../hooks/useSegment";
 import AttackTime from "../../components/AttackTime";
 import PlayTime from "../../components/PlayTime";
+import QuarterButton from "../../components/QuarterButton";
 
 const Container = styled(FlexView)`
   flex: 1;
@@ -54,18 +55,23 @@ const AttackTimeContainer = styled(FlexView)`
   margin: 10px 0;
 `;
 
-const StartButton = styled.TouchableOpacity`
+const GameStartContainer = styled(FlexView)`
   flex: 0.15;
+`;
+
+const StartButton = styled.TouchableOpacity`
+  flex: 1;
+  height: 100%;
   justify-content: center;
-  align-items: center;
   border: 1px solid black;
   border-radius: 10px;
 `;
 const StartButtonText = styled.Text`
   color: black;
-  font-size: 26px;
+  font-size: 20px;
   text-transform: uppercase;
   letter-spacing: 2px;
+  text-align: center;
 `;
 // Information end.
 
@@ -112,10 +118,16 @@ const ScoreMainScreen = () => {
           <AttackTime started={started} />
         </AttackTimeContainer>
 
-        {/* Start button */}
-        <StartButton onPress={onStartClick}>
-          <StartButtonText>{started ? "Stop" : "Start"}</StartButtonText>
-        </StartButton>
+        {/* Game start information */}
+        <GameStartContainer>
+          {/* Quarter button */}
+          <QuarterButton />
+
+          {/* Start button */}
+          <StartButton onPress={onStartClick}>
+            <StartButtonText>{started ? "Stop" : "Start"}</StartButtonText>
+          </StartButton>
+        </GameStartContainer>
       </InfoContainer>
 
       {/* Away Team */}
