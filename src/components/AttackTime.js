@@ -4,10 +4,9 @@ import { View, Text } from "react-native";
 import SevenSegment from "./SevenSegment";
 import useSegment from "../hooks/useSegment";
 import { ONE_SECOND } from "../utils/constants";
+import { FlexButtonView } from "../utils/styles";
 
-const AttackTimeWrapper = styled.TouchableOpacity`
-  flex-direction: row;
-  align-items: center;
+const AttackTimeWrapper = styled(FlexButtonView)`
   transform: scale(0.7);
 `;
 
