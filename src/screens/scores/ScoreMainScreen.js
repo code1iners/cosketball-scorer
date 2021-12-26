@@ -16,6 +16,7 @@ import TeamScore from "../../components/TeamScore";
 import colors from "../../utils/colors";
 import useSegment from "../../hooks/useSegment";
 import AttackTime from "../../components/AttackTime";
+import PlayTime from "../../components/PlayTime";
 
 const Container = styled(FlexView)`
   flex: 1;
@@ -43,14 +44,6 @@ const PlayTimeContainer = styled(FlexView)`
   border: 1px solid black;
   border-radius: 10px;
   justify-content: center;
-`;
-const PlayTimeWrapper = styled(FlexView)`
-  transform: scale(0.5);
-`;
-
-const SegmentWrapper = styled.View`
-  transform: ${(props) =>
-    props.moveX ? `translateX(${props.moveX}px)` : null};
 `;
 
 const AttackTimeContainer = styled(FlexView)`
@@ -99,7 +92,7 @@ const ScoreMainScreen = () => {
 
   return (
     <Container>
-      {/* Home */}
+      {/* Home Team */}
       <TeamContainer>
         {/* Score */}
         <TeamScore teamName={TEAM_HOME} headerColor={colors.red} />
@@ -111,20 +104,7 @@ const ScoreMainScreen = () => {
       <InfoContainer>
         {/* Play time */}
         <PlayTimeContainer>
-          <PlayTimeWrapper>
-            <SegmentWrapper>
-              <SevenSegment number={0} />
-            </SegmentWrapper>
-            <SegmentWrapper>
-              <SevenSegment number={0} />
-            </SegmentWrapper>
-            <SegmentWrapper>
-              <SevenSegment number={0} />
-            </SegmentWrapper>
-            <SegmentWrapper>
-              <SevenSegment number={0} />
-            </SegmentWrapper>
-          </PlayTimeWrapper>
+          <PlayTime started={started} />
         </PlayTimeContainer>
 
         {/* Attack time */}
@@ -138,7 +118,7 @@ const ScoreMainScreen = () => {
         </StartButton>
       </InfoContainer>
 
-      {/* Away */}
+      {/* Away Team */}
       <TeamContainer>
         {/* Score */}
         <TeamScore teamName={TEAM_AWAY} headerColor={colors.blue} />
