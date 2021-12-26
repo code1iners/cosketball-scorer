@@ -64,6 +64,10 @@ const PlayTime = ({ started, playTimeAsMinute = 7 }) => {
       setIntervalId(
         setInterval(() => {
           setPlayTime((previous) => {
+<<<<<<< HEAD
+=======
+            console.log(previous);
+>>>>>>> fc2b566c1bfcb8b16740da0cd69a73bab403c0df
             if (previous <= 0) return 0;
             return previous - 1;
           });
