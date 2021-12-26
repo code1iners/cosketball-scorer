@@ -54,8 +54,8 @@ const AttackTime = ({ started }) => {
         }, ONE_SECOND)
       );
     } else {
-      setAttackTimeIntervalId(null);
       clearInterval(attackTimeIntervalId);
+      setAttackTimeIntervalId(null);
     }
   }, [started]);
 
