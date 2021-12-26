@@ -20,6 +20,7 @@ import PlayTime from "../../components/PlayTime";
 import QuarterButton from "../../components/QuarterButton";
 
 import { Ionicons } from "@expo/vector-icons";
+import { useIsFocused } from "@react-navigation/native";
 
 const Container = styled(FlexView)`
   flex: 1;
@@ -95,12 +96,13 @@ const StartButtonText = styled.Text`
 `;
 // Information end.
 
-const ScoreMainScreen = () => {
+const ScoreMainScreen = ({ navigation: { navigate } }) => {
   // Variables.
   const [started, setStarted] = useState(false);
   const [isSwap, setIsSwap] = useState(false);
   const [teamHomeScore, setTeamHomeScore] = useState(0);
   const [teamAwayScore, setTeamAwayScore] = useState(0);
+  const isFocused = useIsFocused();
 
   // Hooks.
 
@@ -151,6 +153,11 @@ const ScoreMainScreen = () => {
   };
 
   // Handlers.
+
+  const onSettingClick = () => {
+    navigate("SettingMainScreen");
+  };
+
   const onSwapClick = () => {
     setIsSwap((previous) => !previous);
   };
@@ -162,9 +169,11 @@ const ScoreMainScreen = () => {
   // Watch.
 
   useEffect(async () => {
-    // Set device orientation by landscape.
-    await setOrientationByLandscape();
-  }, []);
+    if (isFocused) {
+      // Set device orientation by landscape.
+      await setOrientationByLandscape();
+    }
+  }, [isFocused]);
 
   return (
     <Container>
@@ -183,7 +192,7 @@ const ScoreMainScreen = () => {
           {/* Team swap button */}
           <ActionIconContainer>
             <SwapIconWrapper onPress={onSwapClick}>
-              <Ionicons name="swap-horizontal" size={30} />
+              <Ionicons name="swap-horizontal-outline" size={30} />
             </SwapIconWrapper>
             <IconText>Swap</IconText>
           </ActionIconContainer>
@@ -225,7 +234,15 @@ const ScoreMainScreen = () => {
           scoreDecrease={scoreDecrease}
         />
         {/* Away actions */}
-        <ActionContainer></ActionContainer>
+        <ActionContainer>
+          {/* Team swap button */}
+          <ActionIconContainer>
+            <SwapIconWrapper onPress={onSettingClick}>
+              <Ionicons name="settings-outline" size={30} />
+            </SwapIconWrapper>
+            <IconText>Setting</IconText>
+          </ActionIconContainer>
+        </ActionContainer>
       </TeamContainer>
     </Container>
   );
