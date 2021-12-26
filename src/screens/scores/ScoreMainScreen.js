@@ -19,6 +19,8 @@ import AttackTime from "../../components/AttackTime";
 import PlayTime from "../../components/PlayTime";
 import QuarterButton from "../../components/QuarterButton";
 
+import { Ionicons } from "@expo/vector-icons";
+
 const Container = styled(FlexView)`
   flex: 1;
   justify-content: space-around;
@@ -29,9 +31,27 @@ const TeamContainer = styled.View`
   padding: 10px;
   justify-content: space-between;
 `;
-const ActionContainer = styled.View`
+
+// Actions start.
+const ActionContainer = styled(FlexView)`
   flex: 0.3;
+  justify-content: space-around;
 `;
+
+const ActionIconContainer = styled.View`
+  align-items: center;
+`;
+const IconText = styled.Text``;
+
+const SwapIconWrapper = styled.TouchableOpacity`
+  width: 50px;
+  height: 50px;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid black;
+  border-radius: 100px;
+`;
+// Actions end.
 
 // Information start.
 const InfoContainer = styled.View`
@@ -78,12 +98,62 @@ const StartButtonText = styled.Text`
 const ScoreMainScreen = () => {
   // Variables.
   const [started, setStarted] = useState(false);
+  const [isSwap, setIsSwap] = useState(false);
+  const [teamHomeScore, setTeamHomeScore] = useState(0);
+  const [teamAwayScore, setTeamAwayScore] = useState(0);
 
   // Hooks.
 
   // Methods.
 
+  /**
+   * ### Increase specific team score.
+   * @param {teamName} teamName 'HOME' or 'AWAY'
+   */
+  const scoreIncrease = (teamName) => {
+    switch (teamName) {
+      case TEAM_HOME:
+        setTeamHomeScore((previous) => previous + 1);
+        break;
+      case TEAM_AWAY:
+        setTeamAwayScore((previous) => previous + 1);
+        break;
+    }
+  };
+
+  /**
+   * ### Decrease specific team score.
+   * @param {teamName} teamName 'HOME' or 'AWAY'
+   */
+  const scoreDecrease = (teamName) => {
+    switch (teamName) {
+      case TEAM_HOME:
+        setTeamHomeScore((previous) => {
+          // Is the previous value less than 0?
+          if (previous < 0) return 0;
+          // Is the previous value equal than 0?
+          else if (previous == 0) return previous;
+          // is the previous value other case?
+          else return previous - 1;
+        });
+        break;
+      case TEAM_AWAY:
+        setTeamAwayScore((previous) => {
+          // Is the previous value less than 0?
+          if (previous < 0) return 0;
+          // Is the previous value equal than 0?
+          else if (previous == 0) return previous;
+          // is the previous value other case?
+          else return previous - 1;
+        });
+        break;
+    }
+  };
+
   // Handlers.
+  const onSwapClick = () => {
+    setIsSwap((previous) => !previous);
+  };
 
   const onStartClick = () => {
     setStarted((previous) => !previous);
@@ -101,9 +171,23 @@ const ScoreMainScreen = () => {
       {/* Home Team */}
       <TeamContainer>
         {/* Score */}
-        <TeamScore teamName={TEAM_HOME} headerColor={colors.red} />
+        <TeamScore
+          teamName={isSwap ? TEAM_AWAY : TEAM_HOME}
+          headerColor={isSwap ? colors.blue : colors.red}
+          score={isSwap ? teamAwayScore : teamHomeScore}
+          scoreIncrease={scoreIncrease}
+          scoreDecrease={scoreDecrease}
+        />
         {/* Home actions */}
-        <ActionContainer></ActionContainer>
+        <ActionContainer>
+          {/* Team swap button */}
+          <ActionIconContainer>
+            <SwapIconWrapper onPress={onSwapClick}>
+              <Ionicons name="swap-horizontal" size={30} />
+            </SwapIconWrapper>
+            <IconText>Swap</IconText>
+          </ActionIconContainer>
+        </ActionContainer>
       </TeamContainer>
 
       {/* Information */}
@@ -133,7 +217,13 @@ const ScoreMainScreen = () => {
       {/* Away Team */}
       <TeamContainer>
         {/* Score */}
-        <TeamScore teamName={TEAM_AWAY} headerColor={colors.blue} />
+        <TeamScore
+          teamName={isSwap ? TEAM_HOME : TEAM_AWAY}
+          headerColor={isSwap ? colors.red : colors.blue}
+          score={isSwap ? teamHomeScore : teamAwayScore}
+          scoreIncrease={scoreIncrease}
+          scoreDecrease={scoreDecrease}
+        />
         {/* Away actions */}
         <ActionContainer></ActionContainer>
       </TeamContainer>

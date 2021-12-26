@@ -33,26 +33,19 @@ const ScoreValueWrapper = styled.TouchableOpacity.attrs({
   border-bottom-right-radius: 10px;
 `;
 
-const TeamScore = ({ teamName = "TEAM", headerColor }) => {
+const TeamScore = ({
+  teamName = "TEAM",
+  headerColor,
+  score,
+  scoreIncrease,
+  scoreDecrease,
+}) => {
   // Variables.
 
-  const [score, setScore] = useState(0);
-
+  // Hooks.
   const { getFirstDigit, getSecondDigit } = useSegment();
 
   // Methods.
-
-  const scoreUp = () => {
-    setScore((previous) => previous + 1);
-  };
-
-  const scoreDown = () => {
-    setScore((previous) => {
-      if (previous < 0) return 0;
-      else if (previous == 0) return previous;
-      else return previous - 1;
-    });
-  };
 
   // Handlers.
 
@@ -65,7 +58,10 @@ const TeamScore = ({ teamName = "TEAM", headerColor }) => {
       </ScoreLabelWrapper>
 
       {/* Team Value */}
-      <ScoreValueWrapper onLongPress={scoreDown} onPress={scoreUp}>
+      <ScoreValueWrapper
+        onLongPress={() => scoreDecrease(teamName)}
+        onPress={() => scoreIncrease(teamName)}
+      >
         <SevenSegment number={getSecondDigit(score)} />
         <SevenSegment number={getFirstDigit(score)} />
       </ScoreValueWrapper>
