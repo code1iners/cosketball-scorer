@@ -4,11 +4,13 @@
     "android": "expo run:android",
     "ios": "expo run:ios",
     "web": "expo start --web",
-    "start": "react-native start"
+    "start": "react-native start",
+    "pod": "npx pod-install ios"
   },
   "dependencies": {
     "@ce1pers/use-resource": "^1.0.1",
     "@ce1pers/use-screen": "^1.0.3",
+    "@react-native-async-storage/async-storage": "^1.15.14",
     "@react-navigation/native": "^6.0.6",
     "@react-navigation/native-stack": "^6.2.5",
     "@types/styled-components": "^5.1.17",

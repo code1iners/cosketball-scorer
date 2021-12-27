@@ -21,6 +21,8 @@ import QuarterButton from "../../components/QuarterButton";
 
 import { Ionicons } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import useSettings, { SETTING_PLAY_TIME } from "../../hooks/useSettings";
 
 const Container = styled(FlexView)`
   flex: 1;
@@ -102,11 +104,27 @@ const ScoreMainScreen = ({ navigation: { navigate } }) => {
   const [isSwap, setIsSwap] = useState(false);
   const [teamHomeScore, setTeamHomeScore] = useState(0);
   const [teamAwayScore, setTeamAwayScore] = useState(0);
-  const isFocused = useIsFocused();
+  const [playTime, setPlayTime] = useState();
 
   // Hooks.
+  const isFocused = useIsFocused();
+  const { getSettingPlayTime, setSettingPlayTimeByDefault } = useSettings();
 
   // Methods.
+
+  const setDefaultSettings = async () => {
+    try {
+      // Check & Set default play time.
+      const settingPlayTime = await getSettingPlayTime();
+      if (!settingPlayTime) {
+        setPlayTime(setSettingPlayTimeByDefault());
+      } else {
+        setPlayTime(settingPlayTime);
+      }
+    } catch (e) {
+      console.warn(e);
+    }
+  };
 
   /**
    * ### Increase specific team score.
@@ -173,6 +191,8 @@ const ScoreMainScreen = ({ navigation: { navigate } }) => {
       // Set device orientation by landscape.
       await setOrientationByLandscape();
     }
+
+    setDefaultSettings();
   }, [isFocused]);
 
   return (
@@ -203,7 +223,7 @@ const ScoreMainScreen = ({ navigation: { navigate } }) => {
       <InfoContainer>
         {/* Play time */}
         <PlayTimeContainer>
-          <PlayTime started={started} />
+          <PlayTime playTimeAsMinute={playTime} started={started} />
         </PlayTimeContainer>
 
         {/* Attack time */}

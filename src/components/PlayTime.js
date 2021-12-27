@@ -45,6 +45,22 @@ const PlayTime = ({ started, playTimeAsMinute = 7 }) => {
     setPlayTime(playTimeAsMinute * 60);
   };
 
+  // Handlers.
+
+  /**
+   * ### Increase play time 30 seconds.
+   */
+  const onPlayTimeClick = () => {
+    setPlayTime((previous) => previous + 30);
+  };
+
+  /**
+   * ### Decrease play time 30 seconds.
+   */
+  const onPlayTimeLongClick = () => {
+    setPlayTime((previous) => previous - 30);
+  };
+
   // Watch.
 
   useEffect(() => {
@@ -56,6 +72,10 @@ const PlayTime = ({ started, playTimeAsMinute = 7 }) => {
     convertMinute();
     convertSecond();
   }, [playTime]);
+
+  useEffect(() => {
+    setPlayTime(playTimeAsMinute * 60);
+  }, [playTimeAsMinute]);
 
   useEffect(() => {
     if (started) {
@@ -75,7 +95,10 @@ const PlayTime = ({ started, playTimeAsMinute = 7 }) => {
   }, [started]);
 
   return (
-    <PlayTimeWrapper>
+    <PlayTimeWrapper
+      onPress={onPlayTimeClick}
+      onLongPress={onPlayTimeLongClick}
+    >
       {/* Minute seven segment */}
       <SegmentWrapper>
         <SevenSegment number={getSecondDigit(playTimeMinute)} />
