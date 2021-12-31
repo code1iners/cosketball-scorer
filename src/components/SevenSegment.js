@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components/native";
+import colors from "../utils/colors";
 
 const Container = styled.View`
   width: 70px;
@@ -14,49 +15,49 @@ const Segment = styled.View`
   position: absolute;
   width: 10px;
   height: 50px;
-  background-color: teal;
+  background-color: ${colors.sexyYellow};
   border-radius: 9999px;
-  opacity: 0.3;
+  opacity: 0.075;
 `;
 
 const A = styled(Segment)`
-  opacity: ${(props) => (props.on ? "1" : "0.3")};
+  opacity: ${(props) => (props.on ? "1" : "0.075")};
   top: -20px;
   left: 30px;
   transform: rotate(90deg);
 `;
 const B = styled(Segment)`
-  opacity: ${(props) => (props.on ? "1" : "0.3")};
+  opacity: ${(props) => (props.on ? "1" : "0.075")};
   top: 10px;
   left: 60px;
 `;
 const C = styled(Segment)`
-  opacity: ${(props) => (props.on ? "1" : "0.3")};
+  opacity: ${(props) => (props.on ? "1" : "0.075")};
   top: 70px;
   left: 60px;
 `;
 const D = styled(Segment)`
-  opacity: ${(props) => (props.on ? "1" : "0.3")};
+  opacity: ${(props) => (props.on ? "1" : "0.075")};
   left: 30px;
   top: 100px;
   transform: rotate(90deg);
 `;
 const E = styled(Segment)`
-  opacity: ${(props) => (props.on ? "1" : "0.3")};
+  opacity: ${(props) => (props.on ? "1" : "0.075")};
   top: 70px;
 `;
 const F = styled(Segment)`
-  opacity: ${(props) => (props.on ? "1" : "0.3")};
+  opacity: ${(props) => (props.on ? "1" : "0.075")};
   top: 10px;
 `;
 const G = styled(Segment)`
-  opacity: ${(props) => (props.on ? "1" : "0.3")};
+  opacity: ${(props) => (props.on ? "1" : "0.075")};
   top: 40px;
   left: 30px;
   transform: rotate(90deg);
 `;
 
-const SevenSegment = ({ number, size }) => {
+const SevenSegment = ({ number, size, color }) => {
   const segments = [false, false, false, false, false, false, false];
   if (typeof number === "number") {
     switch (number) {

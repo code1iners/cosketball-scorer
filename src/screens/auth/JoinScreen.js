@@ -21,7 +21,7 @@ const HeaderTitle = styled.Text`
 const FormContainer = styled.View``;
 
 const InputWrapper = styled(FlexView)`
-  border: 1px solid black;
+  border: 1px solid ${(props) => props.theme.colors?.textColor};
   border-radius: 5px;
   padding: 10px;
   margin: 0px 20px;

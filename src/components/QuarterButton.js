@@ -1,16 +1,17 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
+import colors from "../utils/colors";
 
 const Container = styled.TouchableOpacity`
   flex: 1;
   height: 100%;
   justify-content: center;
-  border: 1px solid black;
+  border: 1px solid ${(props) => props.theme.colors?.textColor};
   border-radius: 10px;
   margin-right: 10px;
 `;
 const ButtonText = styled.Text`
-  color: black;
+  color: ${(props) => props.theme.colors?.textColor};
   font-size: 20px;
   text-align: center;
   letter-spacing: 2px;

@@ -4,10 +4,16 @@ import RootNavigation from "./src/navigators/RootNavigator";
 import AppLoading from "expo-app-loading";
 import { Ionicons } from "@expo/vector-icons";
 import { loadFonts } from "@ce1pers/use-resource";
-import { StatusBar } from "react-native";
+import { StatusBar, useColorScheme } from "react-native";
+import { darkTheme, lightTheme } from "./src/utils/colors";
+import { ThemeProvider } from "styled-components/native";
 
 export default function App() {
   const [ready, setReady] = useState(false);
+  const isDarkMode = useColorScheme() === "dark";
+  const theme = {
+    colors: isDarkMode ? darkTheme : lightTheme,
+  };
 
   // Methods.
 
@@ -51,7 +57,9 @@ export default function App() {
   return (
     <NavigationContainer>
       <StatusBar hidden={true} />
-      <RootNavigation />
+      <ThemeProvider theme={theme}>
+        <RootNavigation />
+      </ThemeProvider>
     </NavigationContainer>
   );
 }

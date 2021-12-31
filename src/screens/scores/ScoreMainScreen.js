@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text, TouchableOpacity, useColorScheme } from "react-native";
 import {
   addListener,
   getCurrentScreenOrientation,
@@ -14,7 +14,7 @@ import useSegment from "../../hooks/useSegment";
 import { FlexView } from "../../utils/styles";
 import { TEAM_AWAY, TEAM_HOME } from "../../utils/constants";
 import TeamScore from "../../components/TeamScore";
-import colors from "../../utils/colors";
+import colors, { darkTheme, lightTheme } from "../../utils/colors";
 import AttackTime from "../../components/AttackTime";
 import PlayTime from "../../components/PlayTime";
 import QuarterButton from "../../components/QuarterButton";
@@ -26,6 +26,7 @@ import useSettings from "../../hooks/useSettings";
 const Container = styled(FlexView)`
   flex: 1;
   justify-content: space-around;
+  background-color: ${(props) => props.theme.colors?.backgroundColor};
 `;
 
 const TeamContainer = styled.View`
@@ -43,14 +44,16 @@ const ActionContainer = styled(FlexView)`
 const ActionIconContainer = styled.View`
   align-items: center;
 `;
-const IconText = styled.Text``;
+const IconText = styled.Text`
+  color: ${(props) => props.theme.colors?.textColor};
+`;
 
 const SwapIconWrapper = styled.TouchableOpacity`
   width: 50px;
   height: 50px;
   justify-content: center;
   align-items: center;
-  border: 1px solid black;
+  border: 1px solid ${(props) => props.theme.colors?.textColor};
   border-radius: 100px;
 `;
 // Actions end.
@@ -64,17 +67,19 @@ const InfoContainer = styled.View`
 
 const PlayTimeContainer = styled(FlexView)`
   flex: 0.35;
-  border: 1px solid black;
+  border: 1px solid ${(props) => props.theme.colors?.textColor};
   border-radius: 10px;
   justify-content: center;
+  background-color: ${colors.sexyBlack};
 `;
 
 const AttackTimeContainer = styled(FlexView)`
   flex: 0.5;
   justify-content: center;
-  border: 1px solid black;
+  border: 1px solid ${(props) => props.theme.colors?.textColor};
   border-radius: 10px;
   margin: 10px 0;
+  background-color: ${colors.sexyBlack};
 `;
 
 const GameStartContainer = styled(FlexView)`
@@ -85,11 +90,11 @@ const StartButton = styled.TouchableOpacity`
   flex: 1;
   height: 100%;
   justify-content: center;
-  border: 1px solid black;
+  border: 1px solid ${(props) => props.theme.colors?.textColor};
   border-radius: 10px;
 `;
 const StartButtonText = styled.Text`
-  color: black;
+  color: ${(props) => props.theme.colors?.textColor};
   font-size: 20px;
   text-transform: uppercase;
   letter-spacing: 2px;
@@ -109,6 +114,7 @@ const ScoreMainScreen = ({ navigation: { navigate } }) => {
   // Hooks.
   const isFocused = useIsFocused();
   const { getSettingPlayTime, setSettingPlayTimeByDefault } = useSettings();
+  const isDarkMode = useColorScheme() === "dark";
 
   // Methods.
 
@@ -224,7 +230,11 @@ const ScoreMainScreen = ({ navigation: { navigate } }) => {
           {/* Team swap button */}
           <ActionIconContainer>
             <SwapIconWrapper onPress={onSwapClick}>
-              <Ionicons name="swap-horizontal-outline" size={30} />
+              <Ionicons
+                name="swap-horizontal-outline"
+                size={30}
+                color={isDarkMode ? darkTheme.textColor : lightTheme.textColor}
+              />
             </SwapIconWrapper>
             <IconText>Swap</IconText>
           </ActionIconContainer>
@@ -232,7 +242,11 @@ const ScoreMainScreen = ({ navigation: { navigate } }) => {
           {/* Game reset button */}
           <ActionIconContainer>
             <SwapIconWrapper onPress={onResetClick}>
-              <Ionicons name="checkmark" size={30} />
+              <Ionicons
+                name="checkmark"
+                size={30}
+                color={isDarkMode ? darkTheme.textColor : lightTheme.textColor}
+              />
             </SwapIconWrapper>
             <IconText>Reset</IconText>
           </ActionIconContainer>
@@ -282,7 +296,11 @@ const ScoreMainScreen = ({ navigation: { navigate } }) => {
           {/* Team swap button */}
           <ActionIconContainer>
             <SwapIconWrapper onPress={onSettingClick}>
-              <Ionicons name="settings-outline" size={30} />
+              <Ionicons
+                name="settings-outline"
+                size={30}
+                color={isDarkMode ? darkTheme.textColor : lightTheme.textColor}
+              />
             </SwapIconWrapper>
             <IconText>Setting</IconText>
           </ActionIconContainer>

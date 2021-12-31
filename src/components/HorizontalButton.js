@@ -3,7 +3,7 @@ import styled from "styled-components/native";
 
 const Container = styled.TouchableOpacity`
   padding: 10px;
-  border: 1px solid black;
+  border: 1px solid ${(props) => props.theme.colors?.textColor};
   border-radius: 5px;
 `;
 const Text = styled.Text`

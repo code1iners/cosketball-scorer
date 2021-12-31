@@ -20,5 +20,5 @@ This is a simple basketball score management app powered by React Native.
 - [x] Setting screen.
 - [x] Time intervals.
 - [x] Score and game information reset.
-- [ ] Better design.
-- [ ] Dark mode.
+- [x] Dark mode.
+- [x] Better design (v1).
