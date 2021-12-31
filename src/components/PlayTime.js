@@ -15,9 +15,9 @@ const SegmentWrapper = styled.View`
     props.moveX ? `translateX(${props.moveX}px)` : null};
 `;
 
-const PlayTime = ({ started, playTimeAsMinute = 7 }) => {
+const PlayTime = ({ started, playTimeAsMinute = 7, isReset }) => {
   // Variables.
-  const [playTime, setPlayTime] = useState();
+  const [playTimeAsSecond, setPlayTimeAsSecond] = useState();
   const [playTimeMinute, setPlayTimeMinute] = useState(0);
   const [playTimeSecond, setPlayTimeSecond] = useState(0);
   const [intervalId, setIntervalId] = useState();
@@ -32,17 +32,17 @@ const PlayTime = ({ started, playTimeAsMinute = 7 }) => {
     setIntervalId(null);
   };
 
-  const convertMinute = () => {
-    setPlayTimeMinute(playTime / 60);
+  const convertPlayTimeMinute = () => {
+    setPlayTimeMinute(playTimeAsSecond / 60);
   };
 
-  const convertSecond = () => {
-    setPlayTimeSecond(playTime % 60);
+  const convertPlayTimeSecond = () => {
+    setPlayTimeSecond(playTimeAsSecond % 60);
   };
 
   const convertPlayTime = () => {
     // Set play time as total second.
-    setPlayTime(playTimeAsMinute * 60);
+    setPlayTimeAsSecond(playTimeAsMinute * 60);
   };
 
   // Handlers.
@@ -51,14 +51,14 @@ const PlayTime = ({ started, playTimeAsMinute = 7 }) => {
    * ### Increase play time 30 seconds.
    */
   const onPlayTimeClick = () => {
-    setPlayTime((previous) => previous + 30);
+    setPlayTimeAsSecond((previous) => previous + 30);
   };
 
   /**
    * ### Decrease play time 30 seconds.
    */
   const onPlayTimeLongClick = () => {
-    setPlayTime((previous) => previous - 30);
+    setPlayTimeAsSecond((previous) => previous - 30);
   };
 
   // Watch.
@@ -69,12 +69,12 @@ const PlayTime = ({ started, playTimeAsMinute = 7 }) => {
   }, []);
 
   useEffect(() => {
-    convertMinute();
-    convertSecond();
-  }, [playTime]);
+    convertPlayTimeMinute();
+    convertPlayTimeSecond();
+  }, [playTimeAsSecond]);
 
   useEffect(() => {
-    setPlayTime(playTimeAsMinute * 60);
+    setPlayTimeAsSecond(playTimeAsMinute * 60);
   }, [playTimeAsMinute]);
 
   useEffect(() => {
@@ -82,9 +82,9 @@ const PlayTime = ({ started, playTimeAsMinute = 7 }) => {
       // Game started.
       setIntervalId(
         setInterval(() => {
-          setPlayTime((previous) => {
-            if (previous <= 0) return 0;
-            return previous - 1;
+          setPlayTimeAsSecond((previous) => {
+            let value = previous <= 0 ? 0 : previous - 1;
+            return value;
           });
         }, ONE_SECOND)
       );
@@ -93,6 +93,12 @@ const PlayTime = ({ started, playTimeAsMinute = 7 }) => {
       clearIntervalId();
     }
   }, [started]);
+
+  useEffect(() => {
+    if (isReset) {
+      setPlayTimeAsSecond(playTimeAsMinute * 60);
+    }
+  }, [isReset]);
 
   return (
     <PlayTimeWrapper

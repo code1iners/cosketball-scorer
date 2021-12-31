@@ -4,6 +4,7 @@ import RootNavigation from "./src/navigators/RootNavigator";
 import AppLoading from "expo-app-loading";
 import { Ionicons } from "@expo/vector-icons";
 import { loadFonts } from "@ce1pers/use-resource";
+import { StatusBar } from "react-native";
 
 export default function App() {
   const [ready, setReady] = useState(false);
@@ -49,6 +50,7 @@ export default function App() {
 
   return (
     <NavigationContainer>
+      <StatusBar hidden={true} />
       <RootNavigation />
     </NavigationContainer>
   );

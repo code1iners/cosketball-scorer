@@ -15,7 +15,7 @@ const SegmentWrapper = styled.View`
     props.moveX ? `translateX(${props.moveX}px)` : null};
 `;
 
-const AttackTime = ({ started }) => {
+const AttackTime = ({ started, isReset }) => {
   // Variables.
 
   const [attackTime, setAttackTime] = useState(24);
@@ -57,6 +57,12 @@ const AttackTime = ({ started }) => {
       setAttackTimeIntervalId(null);
     }
   }, [started]);
+
+  useEffect(() => {
+    if (isReset) {
+      setAttackTime(24);
+    }
+  }, [isReset]);
 
   return (
     <AttackTimeWrapper

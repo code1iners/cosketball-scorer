@@ -10,19 +10,18 @@ import {
   setOrientationByPortrait,
 } from "@ce1pers/use-screen";
 import SevenSegment from "../../components/SevenSegment";
+import useSegment from "../../hooks/useSegment";
 import { FlexView } from "../../utils/styles";
 import { TEAM_AWAY, TEAM_HOME } from "../../utils/constants";
 import TeamScore from "../../components/TeamScore";
 import colors from "../../utils/colors";
-import useSegment from "../../hooks/useSegment";
 import AttackTime from "../../components/AttackTime";
 import PlayTime from "../../components/PlayTime";
 import QuarterButton from "../../components/QuarterButton";
 
 import { Ionicons } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
-import AsyncStorage from "@react-native-async-storage/async-storage";
-import useSettings, { SETTING_PLAY_TIME } from "../../hooks/useSettings";
+import useSettings from "../../hooks/useSettings";
 
 const Container = styled(FlexView)`
   flex: 1;
@@ -105,12 +104,18 @@ const ScoreMainScreen = ({ navigation: { navigate } }) => {
   const [teamHomeScore, setTeamHomeScore] = useState(0);
   const [teamAwayScore, setTeamAwayScore] = useState(0);
   const [playTime, setPlayTime] = useState();
+  const [isReset, setIsReset] = useState(false);
 
   // Hooks.
   const isFocused = useIsFocused();
   const { getSettingPlayTime, setSettingPlayTimeByDefault } = useSettings();
 
   // Methods.
+
+  const resetTriggerStart = () => {
+    setIsReset(true);
+    setTimeout(() => setIsReset((previous) => !previous), 1000);
+  };
 
   const setDefaultSettings = async () => {
     try {
@@ -172,6 +177,13 @@ const ScoreMainScreen = ({ navigation: { navigate } }) => {
 
   // Handlers.
 
+  const onResetClick = async () => {
+    setTeamHomeScore(0);
+    setTeamAwayScore(0);
+    resetTriggerStart();
+    setStarted(false);
+  };
+
   const onSettingClick = () => {
     navigate("SettingMainScreen");
   };
@@ -216,6 +228,14 @@ const ScoreMainScreen = ({ navigation: { navigate } }) => {
             </SwapIconWrapper>
             <IconText>Swap</IconText>
           </ActionIconContainer>
+
+          {/* Game reset button */}
+          <ActionIconContainer>
+            <SwapIconWrapper onPress={onResetClick}>
+              <Ionicons name="checkmark" size={30} />
+            </SwapIconWrapper>
+            <IconText>Reset</IconText>
+          </ActionIconContainer>
         </ActionContainer>
       </TeamContainer>
 
@@ -223,12 +243,16 @@ const ScoreMainScreen = ({ navigation: { navigate } }) => {
       <InfoContainer>
         {/* Play time */}
         <PlayTimeContainer>
-          <PlayTime playTimeAsMinute={playTime} started={started} />
+          <PlayTime
+            playTimeAsMinute={playTime}
+            started={started}
+            isReset={isReset}
+          />
         </PlayTimeContainer>
 
         {/* Attack time */}
         <AttackTimeContainer>
-          <AttackTime started={started} />
+          <AttackTime started={started} isReset={isReset} />
         </AttackTimeContainer>
 
         {/* Game start information */}
