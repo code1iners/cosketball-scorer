@@ -5,7 +5,9 @@
     "ios": "expo run:ios",
     "web": "expo start --web",
     "start": "react-native start",
-    "pod": "npx pod-install ios"
+    "pod": "npx pod-install",
+    "build:android": "cd android && ./gradlew bundleRelease && cd ..",
+    "install:android": "npx react-native run-android --variant=release"
   },
   "dependencies": {
     "@ce1pers/use-resource": "^1.0.1",
