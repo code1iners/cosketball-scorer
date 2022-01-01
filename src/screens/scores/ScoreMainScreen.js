@@ -128,7 +128,8 @@ const ScoreMainScreen = ({ navigation: { navigate } }) => {
       // Check & Set default play time.
       const settingPlayTime = await getSettingPlayTime();
       if (!settingPlayTime) {
-        setPlayTime(setSettingPlayTimeByDefault());
+        const time = await setSettingPlayTimeByDefault();
+        setPlayTime(time);
       } else {
         setPlayTime(settingPlayTime);
       }
@@ -276,7 +277,7 @@ const ScoreMainScreen = ({ navigation: { navigate } }) => {
 
           {/* Start button */}
           <StartButton onPress={onStartClick}>
-            <StartButtonText>{started ? "Stop" : "Start"}</StartButtonText>
+            <StartButtonText>{started ? "Stopp" : "Startt"}</StartButtonText>
           </StartButton>
         </GameStartContainer>
       </InfoContainer>
