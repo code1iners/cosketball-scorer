@@ -1,4 +1,5 @@
 {
+  "name": "cosketball-scorer",
   "main": "index.js",
   "scripts": {
     "android": "expo run:android",
@@ -7,7 +8,8 @@
     "start": "react-native start",
     "pod": "npx pod-install",
     "build:android": "cd android && ./gradlew bundleRelease && cd ..",
-    "install:android": "npx react-native run-android --variant=release"
+    "install:android": "npx react-native run-android --variant=release",
+    "publish:android": "appcenter codepush release-react -a coma/cosketball-scorer -d Staging"
   },
   "dependencies": {
     "@ce1pers/use-resource": "^1.0.1",
@@ -17,6 +19,9 @@
     "@react-navigation/native-stack": "^6.2.5",
     "@types/styled-components": "^5.1.17",
     "@types/styled-components-react-native": "^5.1.3",
+    "appcenter": "4.3.0",
+    "appcenter-analytics": "4.3.0",
+    "appcenter-crashes": "4.3.0",
     "expo": "~43.0.2",
     "expo-app-loading": "~1.2.1",
     "expo-asset": "~8.4.3",
@@ -27,6 +32,7 @@
     "react": "17.0.1",
     "react-dom": "17.0.1",
     "react-native": "0.64.3",
+    "react-native-code-push": "^7.0.4",
     "react-native-gesture-handler": "~1.10.2",
     "react-native-keyboard-aware-scroll-view": "^0.9.5",
     "react-native-reanimated": "~2.2.0",

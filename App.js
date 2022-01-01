@@ -4,11 +4,12 @@ import RootNavigation from "./src/navigators/RootNavigator";
 import AppLoading from "expo-app-loading";
 import { Ionicons } from "@expo/vector-icons";
 import { loadFonts } from "@ce1pers/use-resource";
-import { StatusBar, useColorScheme } from "react-native";
+import { Alert, StatusBar, useColorScheme } from "react-native";
 import { darkTheme, lightTheme } from "./src/utils/colors";
 import { ThemeProvider } from "styled-components/native";
+import CodePush from "react-native-code-push";
 
-export default function App() {
+function App() {
   const [ready, setReady] = useState(false);
   const isDarkMode = useColorScheme() === "dark";
   const theme = {
@@ -31,6 +32,7 @@ export default function App() {
    * ### On app loading start event handler.
    */
   const startAsync = async () => {
+    Alert.alert("startAsync", "Please change!");
     await loadResources();
   };
 
@@ -63,3 +65,5 @@ export default function App() {
     </NavigationContainer>
   );
 }
+
+export default CodePush(App);
