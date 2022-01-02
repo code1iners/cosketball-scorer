@@ -277,7 +277,7 @@ const ScoreMainScreen = ({ navigation: { navigate } }) => {
 
           {/* Start button */}
           <StartButton onPress={onStartClick}>
-            <StartButtonText>{started ? "Stopp" : "Startt"}</StartButtonText>
+            <StartButtonText>{started ? "Stop" : "Start"}</StartButtonText>
           </StartButton>
         </GameStartContainer>
       </InfoContainer>
