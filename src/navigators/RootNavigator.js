@@ -6,7 +6,7 @@ import LoggedOutNavigation from "./LoggedOutNavigator";
 const Navigation = createNativeStackNavigator();
 
 const RootNavigation = () => {
-  const [token, setToken] = useState(true);
+  const [token, setToken] = useState(false);
 
   return (
     <Navigation.Navigator

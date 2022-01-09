@@ -1,5 +1,6 @@
 import { NavigationContainer } from "@react-navigation/native";
 import React, { useState } from "react";
+import { AppRegistry } from "react-native";
 import RootNavigation from "./src/navigators/RootNavigator";
 import AppLoading from "expo-app-loading";
 import { Ionicons } from "@expo/vector-icons";
@@ -8,6 +9,8 @@ import { StatusBar, useColorScheme } from "react-native";
 import { darkTheme, lightTheme } from "./src/utils/colors";
 import { ThemeProvider } from "styled-components/native";
 import CodePush from "react-native-code-push";
+import { ApolloProvider } from "@apollo/client";
+import client from "./src/utils/apollo/client";
 
 function App() {
   const [ready, setReady] = useState(false);
@@ -56,12 +59,14 @@ function App() {
   }
 
   return (
-    <NavigationContainer>
-      <StatusBar hidden={true} />
+    <ApolloProvider client={client}>
       <ThemeProvider theme={theme}>
-        <RootNavigation />
+        <NavigationContainer>
+          <StatusBar hidden={true} />
+          <RootNavigation />
+        </NavigationContainer>
       </ThemeProvider>
-    </NavigationContainer>
+    </ApolloProvider>
   );
 }
 
