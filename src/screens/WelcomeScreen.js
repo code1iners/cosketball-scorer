@@ -126,8 +126,6 @@ const WelcomeScreen = ({ navigation: { navigate } }) => {
    * ### Login submit handler.
    */
   const onSubmit = async () => {
-    console.log(email, password);
-
     // Login fetch.
     if (loginLoading) return;
 
@@ -138,8 +136,8 @@ const WelcomeScreen = ({ navigation: { navigate } }) => {
         },
       } = await loginMutation({
         variables: {
-          email,
-          password,
+          email: email?.trim(),
+          password: password?.trim(),
         },
       });
 

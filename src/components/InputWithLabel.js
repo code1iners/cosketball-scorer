@@ -7,7 +7,9 @@ const Container = styled(FlexView)`
   border: 1px solid ${(props) => props.theme.colors?.textColor};
   border-radius: 5px;
   padding: 10px;
-  margin: ${(props) => (props.spacing ? "20px" : "0px")} 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: ${(props) => (props.spacing ? "20px" : "0px")};
 `;
 
 const Label = styled(ThemeText)`
@@ -22,6 +24,13 @@ const Input = styled(ThemeTextInput)`
   letter-spacing: 1.5px;
 `;
 
+/**
+ * ### Input with label component.
+ * @param {autoCapitalize} autoCapitalize characters | words | sentences | none.
+ * @param {returnKeyType} returnKeyType done | go | next | search | send.
+ * @param {keyboardType} keyboardType default | number-pad | decimal-pad | numeric | email-address | phone-pad.
+ * @returns
+ */
 const InputWithLabel = ({
   reference,
   label,
@@ -31,12 +40,11 @@ const InputWithLabel = ({
   autoCapitalize = "none",
   returnKeyType = "next",
   keyboardType = "default",
-  onSubmitEditing,
   spacing = false,
   secureTextEntry = false,
   hasError = false,
+  onSubmitEditing,
 }) => {
-  console.log(hasError);
   return (
     <Container spacing={spacing}>
       <Label hasError={hasError}>{label}</Label>
