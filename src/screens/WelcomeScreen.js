@@ -14,6 +14,7 @@ import {
   ThemeView,
 } from "../components/StyleComponents";
 import InputWithLabel from "../components/InputWithLabel";
+import { login } from "../hooks/useAuth";
 
 const ScrollView = styled(KeyboardAwareScrollView)`
   background-color: ${(props) => props.theme.colors?.backgroundColor};
@@ -142,10 +143,8 @@ const WelcomeScreen = ({ navigation: { navigate } }) => {
       });
 
       if (ok) {
-        // Store token in cache memory.
-        states?.tokenVar(token);
-        // Store in device.
-        AsyncStorage.setItem("token", token);
+        // Store token in device.
+        login(token);
         // Clear email/password inputs.
         clearText();
       } else {

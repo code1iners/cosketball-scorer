@@ -14,6 +14,7 @@ import { USERS_JOIN_MUTATION } from "../../utils/apollo/mutations/users/users.jo
 import { USERS_LOGIN_MUTATION } from "../../utils/apollo/mutations/users/users.login";
 import states from "../../utils/apollo/states/states";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { login } from "../../hooks/useAuth";
 
 const ScrollView = styled(KeyboardAwareScrollView)`
   background-color: ${(props) => props.theme.colors?.backgroundColor};
@@ -78,8 +79,6 @@ const JoinScreen = () => {
    * ### Submit button click handler.
    */
   const onSubmit = async () => {
-    console.log(email, username, password, confirmPassword);
-
     if (joinLoading) return;
 
     if (!email) {
@@ -129,7 +128,6 @@ const JoinScreen = () => {
         Alert.alert("Join succeed", "join process successfully");
 
         if (loginLoading) return;
-        console.log(email?.trim(), password?.trim());
         const {
           data: {
             login: { ok: loginOk, token, error: loginError },
@@ -142,10 +140,8 @@ const JoinScreen = () => {
         });
 
         if (loginOk) {
-          // Store token in cache memory.
-          states?.tokenVar(token);
-          // Store in device.
-          AsyncStorage.setItem("token", token);
+          // Store token in device.
+          login(token);
         } else {
           Alert.alert("Login failed", loginError?.message);
         }

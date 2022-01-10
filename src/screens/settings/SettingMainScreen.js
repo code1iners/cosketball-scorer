@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components/native";
-import { View, Text } from "react-native";
+import { View, Text, Alert } from "react-native";
 import {
   addListener,
   getCurrentScreenOrientation,
@@ -12,10 +12,16 @@ import {
 import useSettings from "../../hooks/useSettings";
 import { Ionicons } from "@expo/vector-icons";
 import { FlexButtonView, FlexView } from "../../utils/styles";
+import { useQuery } from "@apollo/client";
+import { USERS_ME_QUERY } from "../../utils/apollo/queries/users/users.me";
+import { logout } from "../../hooks/useAuth";
 
-const Container = styled.View``;
+const Container = styled.View`
+  flex: 1;
+  background-color: ${(props) => props.theme.colors?.backgroundColor};
+`;
 const SettingBoxRow = styled(FlexView)`
-  padding: 10px;
+  padding: 10px 10px 0;
   justify-content: space-between;
 `;
 
@@ -39,6 +45,8 @@ const SettingValue = styled.Text`
   color: white;
   font-size: 22px;
   margin-top: 10px;
+  letter-spacing: 2px;
+  text-transform: capitalize;
 `;
 
 const SettingMainScreen = () => {
@@ -48,10 +56,29 @@ const SettingMainScreen = () => {
   // Hooks.
 
   const { getSettingPlayTime, setSettingPlayTimeByMinute } = useSettings();
+  const {
+    loading: meLoading,
+    data: meData,
+    error: meError,
+  } = useQuery(USERS_ME_QUERY);
 
   // Methods.
 
   // Handlers.
+
+  const onLogoutClick = () => {
+    Alert.alert("Logout", "Are you sure you want to log out?", [
+      {
+        text: "ok",
+        onPress: () => {
+          logout(meData?.me?.id);
+        },
+      },
+      {
+        text: "cancel",
+      },
+    ]);
+  };
 
   /**
    * ### Increase play time setting 1 minute.
@@ -80,8 +107,8 @@ const SettingMainScreen = () => {
 
   return (
     <Container>
+      {/* Play time */}
       <SettingBoxRow>
-        {/* Play time */}
         <SettingBoxContainer
           onPress={onPlayTimeClick}
           onLongPress={onPlayTimeLongClick}
@@ -95,6 +122,22 @@ const SettingMainScreen = () => {
 
           <SettingRight>
             <SettingValue>{playTime} Minute</SettingValue>
+          </SettingRight>
+        </SettingBoxContainer>
+      </SettingBoxRow>
+
+      {/* Logout */}
+      <SettingBoxRow>
+        <SettingBoxContainer onPress={onLogoutClick}>
+          <SettingLeft>
+            <SettingIconWrapper>
+              <Ionicons name="log-out-outline" size={40} color="white" />
+            </SettingIconWrapper>
+            <SettingLabel>Log out</SettingLabel>
+          </SettingLeft>
+
+          <SettingRight>
+            <SettingValue>{meData?.me?.email}</SettingValue>
           </SettingRight>
         </SettingBoxContainer>
       </SettingBoxRow>

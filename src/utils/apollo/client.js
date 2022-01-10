@@ -3,6 +3,7 @@ import { onError } from "@apollo/client/link/error";
 import { setContext } from "@apollo/client/link/context";
 import { createUploadLink } from "apollo-upload-client";
 import { API_URL } from "@env";
+import states from "./states/states";
 // Link configuration.
 
 // Upload link (related to file).
@@ -26,6 +27,7 @@ const authLink = setContext((_, context) => {
   return {
     headers: {
       ...context?.headers,
+      ...(states.tokenVar() && { token: states.tokenVar() }),
     },
   };
 });
