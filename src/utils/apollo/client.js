@@ -2,13 +2,15 @@ import { ApolloClient, InMemoryCache } from "@apollo/client";
 import { onError } from "@apollo/client/link/error";
 import { setContext } from "@apollo/client/link/context";
 import { createUploadLink } from "apollo-upload-client";
-import { API_URL } from "@env";
+import { API_URL_DEVELOPMENT, API_URL_PRODUCTION } from "@env";
 import states from "./states/states";
+
 // Link configuration.
 
 // Upload link (related to file).
 const uploadLink = createUploadLink({
-  uri: API_URL,
+  // uri: API_URL_DEVELOPMENT,
+  uri: API_URL_PRODUCTION,
 });
 
 // Error link.

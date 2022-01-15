@@ -49,13 +49,9 @@ const PasswordForgotScreen = ({ navigation }) => {
   const [checkValidKeyMutation, { loading: checkValidKeyLoading }] =
     useMutation(USERS_CHECK_VALID_KEY_MUTATION);
 
-  console.log(validated);
-
   // Handlers.
 
   const onChangePasswordClick = async () => {
-    console.log("onChangePasswordClick");
-
     // Check valid new password.
     if (newPassword !== confirmPassword) {
       newPasswordRef.current?.focus();
@@ -77,7 +73,7 @@ const PasswordForgotScreen = ({ navigation }) => {
         newPassword,
       },
     });
-    console.log(ok);
+
     if (!ok) {
       console.error(error);
       return;
@@ -92,7 +88,6 @@ const PasswordForgotScreen = ({ navigation }) => {
   };
 
   const onCheckValidClick = async () => {
-    console.log("onCheckValidClick");
     if (checkValidKeyLoading) {
       return;
     }
@@ -155,7 +150,6 @@ const PasswordForgotScreen = ({ navigation }) => {
     });
 
     if (!ok) {
-      console.log(error);
       Alert.alert("Email send", error);
       return;
     }
