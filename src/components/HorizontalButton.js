@@ -1,5 +1,7 @@
 import React from "react";
+import { ActivityIndicator, useColorScheme } from "react-native";
 import styled from "styled-components/native";
+import { darkTheme, lightTheme } from "../utils/colors";
 import { ThemeText } from "./StyleComponents";
 
 const Container = styled.TouchableOpacity`
@@ -17,10 +19,19 @@ const HorizontalButton = ({
   buttonText = "Button",
   onPress,
   isUppercase = false,
+  isLoading = false,
 }) => {
+  const isDarkMode = useColorScheme() === "dark";
+
   return (
     <Container onPress={onPress}>
-      <Text isUppercase={isUppercase}>{buttonText}</Text>
+      {isLoading ? (
+        <ActivityIndicator
+          color={isDarkMode ? darkTheme.textColor : lightTheme.textColor}
+        />
+      ) : (
+        <Text isUppercase={isUppercase}>{buttonText}</Text>
+      )}
     </Container>
   );
 };

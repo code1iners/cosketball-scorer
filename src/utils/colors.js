@@ -7,13 +7,14 @@ const colors = {
   green: "#1abc9c",
   blue: "#3498db",
   red: "#e74c3c",
+  purple: "#8e44ad",
   sexyYellow: "#fbc531",
 };
 
 export const lightTheme = {
   backgroundColor: colors.white,
   textColor: colors.black,
-  placeholder: colors.blackPlaceholder,
+  placeholder: colors.whitePlaceholder,
   textColorReverse: colors.white,
   ...colors,
 };

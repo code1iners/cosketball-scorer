@@ -61,7 +61,7 @@ const PasswordForgotButton = styled.TouchableOpacity`
   transform: translateY(4px);
 `;
 const PasswordForgotButtonText = styled(ThemeText)`
-  color: blue;
+  color: ${(props) => props.theme.colors?.blue};
   font-weight: 600;
 `;
 
@@ -76,7 +76,7 @@ const JoinContainer = styled(ThemeView)`
 const JoinButton = styled.TouchableOpacity``;
 const JoinText = styled(ThemeText)`
   text-align: center;
-  color: blue;
+  color: ${(props) => props.theme.colors?.blue};
 `;
 
 const WelcomeScreen = ({ navigation: { navigate } }) => {

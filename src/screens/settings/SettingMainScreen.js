@@ -33,17 +33,21 @@ const SettingBoxContainer = styled(FlexButtonView)`
   border-radius: 10px;
 `;
 const SettingLeft = styled.View`
+  flex: 0.3;
   justify-content: center;
   align-items: center;
 `;
-const SettingRight = styled.View``;
+const SettingRight = styled.View`
+  flex: 0.7;
+  align-items: center;
+`;
 const SettingIconWrapper = styled.View``;
 const SettingLabel = styled.Text`
   color: white;
 `;
 const SettingValue = styled.Text`
   color: white;
-  font-size: 22px;
+  font-size: 16px;
   margin-top: 10px;
   letter-spacing: 2px;
   text-transform: capitalize;
